@@ -5,13 +5,11 @@
 - Python 3.8+
 - Pip package manager
 
-## Steps
+## Setup steps
 
 1. Clone the repository
-2. Navigate with the terminal to the directory and run `pip install -r requirements.txt`
-3. Create train data by running [this](generate-dataset.py) file.
-4. Run the [model.py](model.py) file
-
-# Disclaimer
-
-Train data is not pushed in the repository. It is created by running [generate dataset](generate_dataset.py) script.
+2. Navigate with the terminal to the folder
+3. Create a virtual environment by running `python -m venv songpicker-env`
+4. Activate the virtual environment by running `./songpicker-env/Scripts/activate`
+5. Run `pip install -r requirements.txt` to download all the required dependencies
+6. Run python app.py to run the server

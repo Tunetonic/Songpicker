@@ -1,1 +1,4 @@
-train-data/**
+archive/data/**
+__pycache__
+.env
+songpicker-env
