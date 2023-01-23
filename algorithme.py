@@ -1,9 +1,11 @@
-from algorithme_validation import list_is_empty
+from algorithme_utilities import list_is_empty, replace_dash
 import pandas as pd
 
 def calculate_initial_distribution(genres, prefered_genres = None):
     if list_is_empty(genres):
         raise Exception("genres is empty!")
+    
+    genres = list(map(replace_dash, genres)) 
     
     df = pd.DataFrame(index=genres, columns=["chance"])
     genres_len = len(genres)
@@ -38,7 +40,8 @@ def calculate_update_distribution(df = pd.DataFrame, genres = []):
     decreaseLikeWeight = 0.10
     increaseWeight = 0.07
     decreaseWeight = 0.05
-    genreList = list(map(lambda x:x['genre'], genres))
+    genreListNames = list(map(lambda x:x['genre'], genres))
+    genreList = list(map(replace_dash), genreListNames)
     
     for row in genres:
         if row.get("rating") == 1:
@@ -57,23 +60,3 @@ def calculate_update_distribution(df = pd.DataFrame, genres = []):
         break
         
     return df
-
-genres = ["acoustic", "afrobeat", "alt-rock", "alternative", "ambient", "anime", "black-metal", "bluegrass", "blues", "bossanova", "brazil", "breakbeat", "british", "cantopop", "chicago-house", "children", "chill", "classical", "club", "comedy", "country", "dance", "dancehall", "death-metal", "deep-house", "detroit-techno", "disco", "disney", "drum-and-bass", "dub", "dubstep", "edm", "electro", "electronic", "emo", "folk", "forro", "french", "funk", "garage", "german", "gospel", "goth", "grindcore", "groove", "grunge", "guitar", "happy", "hard-rock", "hardcore", "hardstyle", "heavy-metal", "hip-hop", "holidays", "honky-tonk", "house", "idm", "indian", "indie", "indie-pop", "industrial", "iranian", "j-dance", "j-idol", "j-pop", "j-rock", "jazz", "k-pop", "kids", "latin", "latino", "malay", "mandopop", "metal", "metal-misc", "metalcore", "minimal-techno", "movies", "mpb", "new-age", "new-release", "opera", "pagode", "party", "philippines-opm", "piano", "pop", "pop-film", "post-dubstep", "power-pop", "progressive-house", "psych-rock", "punk", "punk-rock", "r-n-b", "rainy-day", "reggae", "reggaeton", "road-trip", "rock", "rock-n-roll", "rockabilly", "romance", "sad", "salsa", "samba", "sertanejo", "show-tunes", "singer-songwriter", "ska", "sleep", "songwriter", "soul", "soundtracks", "spanish", "study", "summer", "swedish", "synth-pop", "tango", "techno", "trance", "trip-hop", "turkish", "work-out", "world-music"]
-prio_test = ["acoustic", "afrobeat", "ambient"]
-
-algo_test = [{'genre': 'acoustic', 'rating': 1},
- {'genre': 'rock', 'rating': 1},
- {'genre': 'afrobeat', 'rating': 0},
- {'genre': 'rock', 'rating': 1},
- {'genre': 'rock', 'rating': 0},
- {'genre': 'afrobeat', 'rating': 0},
- {'genre': 'rock', 'rating': 1},
- {'genre': 'rock', 'rating': 0},
- {'genre': 'afrobeat', 'rating': 1},
- {'genre': 'rock', 'rating': 1},
- {'genre': 'rock', 'rating': 0},
- {'genre': 'afrobeat', 'rating': 0}]
-
-# algo_result = content_algorithme(df, algo_test)
-df = calculate_initial_distribution(genres, prio_test)
-df.rename_axis.reset_index()
